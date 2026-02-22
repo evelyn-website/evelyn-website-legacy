@@ -32,7 +32,7 @@ function Home() {
             >
               <div className="card-header">
                 <span className="chip">in progress</span>
-                <h3>Bundle</h3>
+                <h3>Chat App</h3>
                 <p>temporary group chats for events</p>
                 <button
                   className="expand-button"
@@ -71,20 +71,20 @@ function Home() {
             </div>
             <div
               className={`project-card ${
-                expandedCard === "project4" ? "expanded" : ""
+                expandedCard === "project3" ? "expanded" : ""
               }`}
-              onClick={() => toggleCard("project4")}
+              onClick={() => toggleCard("project3")}
             >
               <div className="card-header">
-                <span className="chip">ideation</span>
-                <h3>Family Photo</h3>
-                <p>invite-only community photo sharing</p>
+                <span className="chip">deferred</span>
+                <h3>Give Me the Aux</h3>
+                <p>Competitive music sharing game for friends</p>
                 <button
                   className="expand-button"
                   aria-label="expand project details"
                 >
                   <span className="expand-icon">
-                    {expandedCard === "project4" ? "−" : "+"}
+                    {expandedCard === "project3" ? "−" : "+"}
                   </span>
                 </button>
               </div>
@@ -92,19 +92,26 @@ function Home() {
                 <div className="details-content">
                   <h4>what i'm building</h4>
                   <p>
-                    This one is a collaboration with my friend Emily. We know so
-                    many people who are tired of using Instagram or Bluesky to
-                    share their photos. This project will be an invite-only
-                    platform for sharing photos.
+                    The basic concept is that a group admin picks a theme,
+                    everybody submits a song, and then the group votes on which
+                    songs they like best. It's not the most original idea, but I
+                    wanted to make sure that the app feels nice to use.
                   </p>
                   <ul>
-                    <li>high quality images, emphasis on performance</li>
-                    <li>curation over algorithm</li>
-                    <li>maybe a PWA? we'll see</li>
+                    <li>
+                      built with react native and express + prisma backend
+                    </li>
+                    <li>
+                      spotify oauth (unfortunately really the only way to do it
+                      that doesn't require everyone to use the same paid
+                      service)
+                    </li>
                   </ul>
                   <p>
-                    <strong>next steps:</strong> finish some other stuff so I
-                    can work on this
+                    <strong>next steps:</strong> honestly I was working on this
+                    because I was frustrated with chat app, but now i'm back on
+                    that. so we'll see where this goes. it's not deployed
+                    anywhere.
                   </p>
                 </div>
               </div>
@@ -160,20 +167,20 @@ function Home() {
           <div className="grid-column">
             <div
               className={`project-card ${
-                expandedCard === "project3" ? "expanded" : ""
+                expandedCard === "project4" ? "expanded" : ""
               }`}
-              onClick={() => toggleCard("project3")}
+              onClick={() => toggleCard("project4")}
             >
               <div className="card-header">
-                <span className="chip">beta testing</span>
-                <h3>Give Me the Aux</h3>
-                <p>Competitive music sharing game for friends</p>
+                <span className="chip">deployed</span>
+                <h3>Family Photo</h3>
+                <p>invite-only community photo sharing</p>
                 <button
                   className="expand-button"
                   aria-label="expand project details"
                 >
                   <span className="expand-icon">
-                    {expandedCard === "project3" ? "−" : "+"}
+                    {expandedCard === "project4" ? "−" : "+"}
                   </span>
                 </button>
               </div>
@@ -181,24 +188,21 @@ function Home() {
                 <div className="details-content">
                   <h4>what i'm building</h4>
                   <p>
-                    The basic concept is that a group admin picks a theme,
-                    everybody submits a song, and then the group votes on which
-                    songs they like best. It's not the most original idea, but I
-                    wanted to make sure that the app feels nice to use.
+                    This one is a collaboration with my friend Emily. We know so
+                    many people who are tired of using Instagram or Bluesky to
+                    share their photos. This is an invite-only platform for
+                    sharing photos.
                   </p>
                   <ul>
-                    <li>
-                      built with react native and express + prisma backend
-                    </li>
-                    <li>
-                      spotify oauth (unfortunately really the only way to do it
-                      that doesn't require everyone to use the same paid
-                      service)
-                    </li>
+                    <li>high quality images</li>
+                    <li>curation over algorithm</li>
+                    <li>nice place for my friends</li>
                   </ul>
                   <p>
-                    <strong>next steps:</strong> finish beta testing and get it
-                    approved by spotify + apple
+                    <strong>timeline:</strong> december 2025-present
+                  </p>
+                  <p>
+                    <strong>next steps:</strong> active
                   </p>
                 </div>
               </div>

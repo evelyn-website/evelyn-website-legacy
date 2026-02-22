@@ -2,12 +2,12 @@ import { useState } from "react";
 
 const blogPosts = [
   {
-    id: "chat-ui",
-    date: "August 2025",
-    title: "Things I had to think about making a chat UI",
-    excerpt: "everything has to be perfect",
-    tags: ["technology", "mobile", "ui"],
-    file: "/blog/chat-ui.md",
+    id: "chat-app-encryption",
+    date: "February 2026",
+    title: "How encryption works for my group messaging app",
+    excerpt: "Prove me wrong!",
+    tags: ["technology", "mobile", "security"],
+    file: "/blog/chat-app-encryption.md",
   },
 ];
 
@@ -79,13 +79,12 @@ function Blog() {
               </div>
               <div className="post-content">
                 <div className="content-text">
-                  {expandedPost === post.id && (
-                    loadedContent[post.id] ? (
+                  {expandedPost === post.id &&
+                    (loadedContent[post.id] ? (
                       renderContent(loadedContent[post.id])
                     ) : (
                       <p>loading...</p>
-                    )
-                  )}
+                    ))}
                 </div>
               </div>
             </article>
