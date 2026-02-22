@@ -1,25 +1,40 @@
 import { useState } from "react";
 
+const blogPosts = [
+  {
+    id: "chat-ui",
+    date: "August 2025",
+    title: "Things I had to think about making a chat UI",
+    excerpt: "everything has to be perfect",
+    tags: ["technology", "mobile", "ui"],
+    file: "/blog/chat-ui.md",
+  },
+];
+
 function Blog() {
   const [expandedPost, setExpandedPost] = useState(null);
+  const [loadedContent, setLoadedContent] = useState({});
 
-  const togglePost = (postId) => {
-    setExpandedPost(expandedPost === postId ? null : postId);
+  const togglePost = (postId, file) => {
+    if (expandedPost === postId) {
+      setExpandedPost(null);
+      return;
+    }
+    setExpandedPost(postId);
+    if (!loadedContent[postId]) {
+      fetch(file)
+        .then((res) => res.text())
+        .then((text) => {
+          setLoadedContent((prev) => ({ ...prev, [postId]: text }));
+        });
+    }
   };
 
-  const blogPosts = [
-    {
-      id: "post1",
-      date: "August 2025",
-      title: "Things I had to think about making a chat UI",
-      excerpt: "everything has to be perfect",
-      content: [
-        "I'm working on two different apps with chat UIs. One is Bundle, which is my big project that I've been working on for about a year. The other is Give Me the Aux, which I basically threw together quickly (read: vibe coded). Give Me the Aux isn't really about chat. It's a game about music, but it has to have chat. For this, I was basically comfortable with the idea of just going as simple as possible. Long polling, no websockets, no push notifications, no encryption, no images. I just wanted it to work. Even still, there's just a crazy amount of stuff you need to get right. I still don't really feel like I've mastered it. I'm sure I'll be back here in a few months to write about it again.",
-        "Even for a simple chat UI without all those features I mentioned, there's so much you have to think about.",
-      ],
-      tags: ["technology", "mobile", "ui"],
-    },
-  ];
+  const renderContent = (text) => {
+    return text
+      .split(/\n\n+/)
+      .map((paragraph, i) => <p key={i}>{paragraph}</p>);
+  };
 
   return (
     <div className="blog-container">
@@ -38,7 +53,7 @@ function Blog() {
               className={`blog-post ${
                 expandedPost === post.id ? "expanded" : ""
               }`}
-              onClick={() => togglePost(post.id)}
+              onClick={() => togglePost(post.id, post.file)}
             >
               <div className="post-header">
                 <div className="post-meta">
@@ -64,9 +79,13 @@ function Blog() {
               </div>
               <div className="post-content">
                 <div className="content-text">
-                  {post.content.map((paragraph, index) => (
-                    <p key={index}>{paragraph}</p>
-                  ))}
+                  {expandedPost === post.id && (
+                    loadedContent[post.id] ? (
+                      renderContent(loadedContent[post.id])
+                    ) : (
+                      <p>loading...</p>
+                    )
+                  )}
                 </div>
               </div>
             </article>
