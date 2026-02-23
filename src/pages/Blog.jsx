@@ -1,39 +1,18 @@
-import { useState } from "react";
-
-const blogPosts = [
-  {
-    id: "chat-app-encryption",
-    date: "February 2026",
-    title: "How encryption works for my group messaging app",
-    excerpt: "Prove me wrong!",
-    tags: ["technology", "mobile", "security"],
-    file: "/blog/chat-app-encryption.md",
-  },
-];
+import { useNavigate } from "react-router-dom";
+import { blogPosts } from "../data/blogPosts";
 
 function Blog() {
-  const [expandedPost, setExpandedPost] = useState(null);
-  const [loadedContent, setLoadedContent] = useState({});
+  const navigate = useNavigate();
 
-  const togglePost = (postId, file) => {
-    if (expandedPost === postId) {
-      setExpandedPost(null);
-      return;
-    }
-    setExpandedPost(postId);
-    if (!loadedContent[postId]) {
-      fetch(file)
-        .then((res) => res.text())
-        .then((text) => {
-          setLoadedContent((prev) => ({ ...prev, [postId]: text }));
-        });
-    }
+  const goToPost = (postId) => {
+    navigate(`/blog/${postId}`);
   };
 
-  const renderContent = (text) => {
-    return text
-      .split(/\n\n+/)
-      .map((paragraph, i) => <p key={i}>{paragraph}</p>);
+  const handleCardKeyDown = (event, postId) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      goToPost(postId);
+    }
   };
 
   return (
@@ -45,46 +24,34 @@ function Blog() {
         </p>
       </section>
 
-      <section className="section">
+      <section className="blog-posts-section">
         <div className="blog-grid">
           {blogPosts.map((post) => (
             <article
               key={post.id}
-              className={`blog-post ${
-                expandedPost === post.id ? "expanded" : ""
-              }`}
-              onClick={() => togglePost(post.id, post.file)}
+              className="blog-post"
+              role="button"
+              tabIndex={0}
+              onClick={() => goToPost(post.id)}
+              onKeyDown={(event) => handleCardKeyDown(event, post.id)}
+              aria-label={`Open post: ${post.title}`}
             >
               <div className="post-header">
                 <div className="post-meta">
                   <span className="post-date">{post.date}</span>
-                  <div className="post-tags">
-                    {post.tags.map((tag) => (
-                      <span key={tag} className="tag">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
                 </div>
                 <h3 className="post-title">{post.title}</h3>
                 <p className="post-excerpt">{post.excerpt}</p>
-                <button
-                  className="expand-button"
-                  aria-label="expand post content"
-                >
-                  <span className="expand-icon">
-                    {expandedPost === post.id ? "−" : "+"}
-                  </span>
-                </button>
-              </div>
-              <div className="post-content">
-                <div className="content-text">
-                  {expandedPost === post.id &&
-                    (loadedContent[post.id] ? (
-                      renderContent(loadedContent[post.id])
-                    ) : (
-                      <p>loading...</p>
-                    ))}
+                <div className="post-link-row">
+                  <button
+                    className="post-link"
+                    type="button"
+                    aria-label={`Read ${post.title}`}
+                    onClick={() => goToPost(post.id)}
+                  >
+                    read post
+                  </button>
+                  <span className="post-link-hint">shareable url</span>
                 </div>
               </div>
             </article>

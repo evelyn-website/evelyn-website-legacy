@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 function Layout({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const isBlogRoute = location.pathname.startsWith("/blog");
 
   const handleSectionClick = (sectionId) => {
     if (location.pathname !== "/") {
@@ -67,9 +68,7 @@ function Layout({ children }) {
         </button>
         <Link
           to="/blog"
-          className={`button ${
-            location.pathname === "/blog" ? "" : "button--ghost"
-          }`}
+          className={`button ${isBlogRoute ? "" : "button--ghost"}`}
         >
           blog
         </Link>

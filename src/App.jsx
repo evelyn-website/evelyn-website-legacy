@@ -3,6 +3,7 @@ import "./App.css";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 
 function App() {
   return (
@@ -21,6 +22,14 @@ function App() {
           element={
             <Layout>
               <Blog />
+            </Layout>
+          }
+        />
+        <Route
+          path="/blog/:postId"
+          element={
+            <Layout>
+              <BlogPost />
             </Layout>
           }
         />
